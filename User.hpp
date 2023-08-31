@@ -48,7 +48,7 @@ public:
     friend void inputUsersTXT(const int maxUsers, int& countUsers, int ptrSwitch);
 
     // ћетод: создание пользователс€ в ручную с консоли
-    void createUser()
+    void createUser(int ptrfolder)
     {
         system("cls");
         cout << "¬ведите им€: ";
@@ -62,13 +62,26 @@ public:
         cout << "¬ведите количество карт: ";
         cin >> countCard;
         vector <Card> newcard;
+        string num1 = to_string(ptrfolder + 1);
+        string path1 = "Users/User";
+        path1 += num1;
+
+        create_directory(path1);
         for (int i = 0; i < countCard; i++)
         {
             Card card;
             card.inputDataCard(i + 1);
             newcard.push_back(card);
+
+            string num2 = to_string(i + 1);
+            string path2 = path1;
+            path2 += "/Card";
+            path2 += num2;
+            create_directory(path2);
         }
         card = newcard;
+
+        
     }
 
     // ћетод: вывод данных пользовател€ 
@@ -168,13 +181,6 @@ ostream& operator<<(ostream& os, User& user)
     os << user.getName() << user.getSurname() << user.getLogin() << user.getKey() << user.getCountCard();
         return os;
 }
-
-
-//istream& operator>>(istream& is, User& user)
-//{
-//    is >> user.setName() >> user.setSurname() >> user.setLogin() >> user.setKey() >> user.setCountCard();
-//    return is;
-//}
 
 void inputUsersTXT(vector<User> &users, int ptrSwitch)
 {

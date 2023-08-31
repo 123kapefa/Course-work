@@ -39,7 +39,7 @@ void loginMenu(int &ptr)
                 break;
             case 2:
                 
-                ptruser.createUser();
+                ptruser.createUser(users.size());
                 users.push_back(ptruser);
                 break;
             case 0:
