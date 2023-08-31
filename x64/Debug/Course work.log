@@ -1,1 +1,7 @@
-﻿  Course work.vcxproj -> C:\Users\Артур\Desktop\Course Work\Course work\x64\Debug\Course work.exe
+﻿  Main.cpp
+C:\Users\Артур\Desktop\Course Work\Course work\Spending.h(82,23): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Артур\Desktop\Course Work\Course work\Spending.h(84,23): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Артур\Desktop\Course Work\Course work\Spending.h(104,41): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+C:\Users\Артур\Desktop\Course Work\Course work\Card.hpp(137,38): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+C:\Users\Артур\Desktop\Course Work\Course work\Menu.hpp(42,46): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  Course work.vcxproj -> C:\Users\Артур\Desktop\Course Work\Course work\x64\Debug\Course work.exe
