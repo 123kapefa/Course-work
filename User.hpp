@@ -28,7 +28,7 @@ public:
     string getName() { return name; }
     string getSurname() { return surname; }
     vector <Card> getCard() { return card; }
-    int getCountCard() { return countCard; }
+    int getCountCard() { return card.size(); }
 
     // Мутаторы
     void setLogin(string _login) { login = _login; }
@@ -36,7 +36,8 @@ public:
     void setName(string _name) { name = _name; }
     void setSurname(string _surname) { surname = _surname; }
     void setCountCard(int _countCard) { countCard = _countCard; }
-    void setCard(vector <Card> _card) { card = _card; }
+    void setCardAll(vector <Card> _card) { card = _card; }
+    void setCardOne(Card _card) { card.push_back(_card); }
     //void setCard(Card* _card)
     
     
@@ -89,6 +90,20 @@ public:
     {
         cout << "   Имя: " << name << "   Фамилия: " << surname << "   Кол-тво карт: " << countCard << endl;
 
+    }
+
+    void outputSpenddingU()
+    {
+        system("cls ");
+        int ptrcard;
+        cout << "Выберите карту\n";
+        for (int i = 0; i < card.size(); i++)
+        {
+            cout << "\t" << i + 1 << " карта\n";
+        }
+        cin >> ptrcard;
+        system("cls");
+        card[ptrcard - 1].outputSpenddingC();
     }
 
     // Метод: вызов метода с класса "Card" для ввода данных карт пользователя
@@ -207,13 +222,7 @@ void inputUsersTXT(vector<User> &users, int ptrSwitch)
                 getline(fin, ptrCountCardStr);
                 fin.ignore();
 
-                    /*string ptrFolder = "User";
-                    string numberFolder = to_string(i);
-                    ptrFolder += numberFolder;
-                    if (exists(ptrFolder))
-                        is_directory(status(ptrFolder));
-                    else
-                        create_directory(ptrFolder);*/
+                 
 
                 int ptrCountCard = stoi(ptrCountCardStr);
 

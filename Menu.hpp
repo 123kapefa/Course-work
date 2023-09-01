@@ -69,37 +69,36 @@ void globalMenu(vector <User> &users, int &ptr)
             {
                 if (users[i].getKey() == ptrKey)
                 {
-                    int menuSwitch3 = 7;
+                    int menuSwitch3 = 1;
                     while (menuSwitch3 != 0)
                     {
                         system("cls");
                         cout << "=============== Ваши данные ===============\n";
                         users[i].outputUserDistlay();
-                        int menuSwitch4 = 7;
+                        int menuSwitch4;
                         menu2();
-                        //void menu2()
-                        //{
-                        //    cout << "===========================================\n";
-                        //    cout << "\t1 - Посмотреть все карты\n";
-                        //    cout << "\t2 - Пополнить карту\n";
-                        //    cout << "\t3 - Внести затраты\n";
-                        //    cout << "\t4 - Сделать отчет\n";
-                        //    cout << "\t5 - Сделать рейтинг\n";
-                        //    cout << "\t6 - Настройки\n";
-                        //    cout << "\t0 - Выход\n";
-                        //    cout << "===========================================\n";
-                        //}
+                        /*cout << "===========================================\n";
+                        cout << "\t1 - Посмотреть все карты\n";
+                        cout << "\t2 - Пополнить карту\n";
+                        cout << "\t3 - Добавить карту\n";
+                        cout << "\t4 - Внести затраты\n";
+                        cout << "\t5 - Посмотреть затраты\n";
+                        cout << "\t6 - Сделать отчет\n";
+                        cout << "\t7 - Сделать рейтинг\n";
+                        cout << "\t8 - Настройки\n";
+                        cout << "\t0 - Выход\n";
+                        cout << "===========================================\n";*/
                         cin >> menuSwitch4;
                         switch (menuSwitch4)
                         {
-                        case 1:
+                        case 1: // 1 - Посмотреть все карты
                         {
                             system("cls");
                             users[i].showOutputDataCard();
                             system("pause");
                             break;
                         }
-                        case 2:
+                        case 2: // 2 - Пополнить карту
                         {
                             int ptrCard = 0;
                             cout << "=============== Ваши карты ===============\n";
@@ -122,24 +121,48 @@ void globalMenu(vector <User> &users, int &ptr)
                             }
                             break;
                         }
-                        case 3:
+                        case 3: // 3 - Добавить карту
+                        {
+                            Card card;
+                            int k = i + 1;
+                            card.inputDataCard(k);
+                            users[i].setCardOne(card);
+
+                            string num1 = to_string(k);
+                            string path1 = "Users/User";
+                            path1 += num1;
+                            int n = users[i].getCountCard();
+                            string num2 = to_string(n);
+                            string path2 = path1;
+                            path2 += "/Card";
+                            path2 += num2;
+                            create_directory(path2);
+                            break;
+                        }
+                        case 4: // 4 - Посмотреть затраты
+                        {
+                            users[i].outputSpenddingU();
+                            break;
+                        }
+                        case 5: // 5 - Внести затраты
                         {
                             break;
                         }
-                        case 4:
+                        case 6: // 6 - Сделать отчет
                         {
                             break;
                         }
-                        case 5:
+                        case 7: // 7 - Сделать рейтинг
                         {
+
                             break;
                         }
-                        case 6:
+                        case 8: // 8 - Настройки
                         {
                             menu3(users);
                             break;
                         }
-                        case 0:
+                        case 0: // 0 - Выход
                         {
                             menuSwitch3 = 0;
                             ptr = 0;
@@ -187,10 +210,12 @@ void menu2()
     cout << "===========================================\n";
     cout << "\t1 - Посмотреть все карты\n";
     cout << "\t2 - Пополнить карту\n";
-    cout << "\t3 - Внести затраты\n";
-    cout << "\t4 - Сделать отчет\n";
-    cout << "\t5 - Сделать рейтинг\n";
-    cout << "\t6 - Настройки\n";
+    cout << "\t3 - Добавить карту\n";
+    cout << "\t4 - Посмотреть затраты\n";
+    cout << "\t5 - Внести затраты\n";
+    cout << "\t6 - Сделать отчет\n";
+    cout << "\t7 - Сделать рейтинг\n";
+    cout << "\t8 - Настройки\n";
     cout << "\t0 - Выход\n";
     cout << "===========================================\n";
 }

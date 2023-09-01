@@ -105,6 +105,26 @@ public:
         cout << "\tБаланс: " << cardSum << endl;
     }
 
+    void outputSpenddingC()
+    {
+        cout << setw(5) << "|"
+            << setw(17) << " Название услуги "
+            << setw(1) << "|"
+            << setw(6) << "  ID  "
+            << setw(1) << "|"
+            << setw(14) << " Дата покупки "
+            << setw(1) << "|"
+            << setw(10) << "   Цена   "
+            << setw(1) << " |"
+            << endl;
+        cout << setw(55) << "    +-----------------+------+--------------+-----------+" << endl;
+        for (int i = 0; i < cardSpending.size(); i++)
+        {
+            cardSpending[i].outputSpenddingS();
+        }
+        system("pause");
+    }
+
     friend void inputCardsTXT(vector<Card> &cards, int ptrCountCards, int usersnumber, int ptrSwitch)
     {
         string ptrusernumber = to_string(usersnumber);

@@ -19,27 +19,27 @@ public:
         {
         case 1:
             category.id = _category_id;
-            category.name = "Products";
+            category.name = "Продукты";
             break;
         case 2:
             category.id = _category_id;
-            category.name = "Taxi";
+            category.name = "Такси";
             break;
         case 3:
             category.id = _category_id;
-            category.name = "Pharmacy";
+            category.name = "Медицина";
             break;
         case 4:
             category.id = _category_id;
-            category.name = "GoodsAndServices";
+            category.name = "Товары и услуги";
             break;
         case 5:
             category.id = _category_id;
-            category.name = "Restaurants";
+            category.name = "Рестораны";
             break;
         case 6:
             category.id = _category_id;
-            category.name = "Fuel";
+            category.name = "Топливо";
             break;
         }
 
@@ -71,6 +71,24 @@ public:
     void setDateMon(Date _date) { date.date_mon = _date.date_mon; }
     void setDateYear(Date _date) { date.date_year = _date.date_year; }
     void setPrice(double _price) { price = _price; }
+
+    void outputSpenddingS()
+    {
+        cout << setw(5) << "|"
+            << setw(16) << category.name
+            << setw(3) << " | "
+            << setw(3) << category.id
+            << setw(4) << "  |  "
+            << setw(4) << date.date_year
+            << setw(1) << "."
+            << setw(2) << date.date_mon
+            << setw(1) << "."
+            << setw(2) << date.date_day
+            << setw(4) << "  | "
+            << setw(9) << fixed << setprecision(2) << price
+            << setw(2) << " |"
+            << endl;
+    }
 
     friend void inputSpendingTXT(vector <Spending> &s, int usernumber, int cardnumber, int ptrSwitch)
     {
@@ -129,23 +147,3 @@ public:
         fin.close();
     }
 };
-
-
-
-//
-//4 20231210 28.0
-//1 20231211 19.0
-//3 20231212 5.0
-//5 20231213 30.0
-//6 20231214 45.0
-//2 20231215 10.0
-//1 20231216 40.0
-//3 20231217 12.5
-//5 20231218 55.0
-//4 20231219 33.0
-//1 20231220 28.0
-//3 20231221 6.0
-//5 20231222 42.0
-//6 20231223 20.0
-//2 20231224 15.0
-//1 20231225 18.0
