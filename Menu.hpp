@@ -146,6 +146,7 @@ void globalMenu(vector <User> &users, int &ptr)
                         }
                         case 5: // 5 - Внести затраты
                         {
+                            users[i].inputSpendingU();
                             break;
                         }
                         case 6: // 6 - Сделать отчет

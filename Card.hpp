@@ -125,6 +125,14 @@ public:
         system("pause");
     }
 
+    void inputSpendingC()
+    {
+            Spending ptrspending;
+            ptrspending.inputSpendingS(ptrspending);
+            cardSpending.push_back(ptrspending);
+        system("pause");
+    }
+
     friend void inputCardsTXT(vector<Card> &cards, int ptrCountCards, int usersnumber, int ptrSwitch)
     {
         string ptrusernumber = to_string(usersnumber);
@@ -173,4 +181,6 @@ public:
     {
         inputSpendingTXT(cardSpending, usernumber, cardnumber, 2);
     }
+
+
 };

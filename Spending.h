@@ -59,8 +59,47 @@ public:
     double getPrice() { return price; }
 
     // Мутаторы
-    //void setCategory(int _category) { category = _category; }
-    //void setName(string _name) { name = _name; }
+    void setCategory(Category c)
+    {
+        category.id = c.id;
+        category.name = c.name;
+    }
+    void setCategory(int id)
+    {
+        switch (id)
+        {
+        case 1:
+            category.id = id;
+            category.name = "Продукты";
+            break;
+        case 2:
+            category.id = id;
+            category.name = "Такси";
+            break;
+        case 3:
+            category.id = id;
+            category.name = "Медицина";
+            break;
+        case 4:
+            category.id = id;
+            category.name = "Товары и услуги";
+            break;
+        case 5:
+            category.id = id;
+            category.name = "Рестораны";
+            break;
+        case 6:
+            category.id = id;
+            category.name = "Топливо";
+            break;
+        }
+    }
+    void setDate(int year, int mon, int day)
+    {
+        date.date_day = day;
+        date.date_mon = mon;
+        date.date_year = year;
+    }
     void setDate(Date _date)
     {
         date.date_day = _date.date_day;
@@ -73,6 +112,52 @@ public:
     void setPrice(double _price) { price = _price; }
 
     void outputSpenddingS()
+    {
+        cout << setw(5) << "|"
+            << setw(16) << category.name
+            << setw(3) << " | "
+            << setw(3) << category.id
+            << setw(4) << "  |  "
+            << setw(4) << date.date_year
+            << setw(1) << "."
+            << setw(2) << date.date_mon
+            << setw(1) << "."
+            << setw(2) << date.date_day
+            << setw(4) << "  | "
+            << setw(9) << fixed << setprecision(2) << price
+            << setw(2) << " |"
+            << endl;
+    }
+
+    void inputSpendingS(Spending &s)
+    {
+        int ptrid;
+        string ptr_date_str, ptr_year_str, ptr_mon_str, ptr_day_str;
+        double ptr_price;
+        cout << "Выберите категорию затрат\n";
+        cout << "1 - Продукты\n2 - _category_id\n3 - Медицина\n4 - Товары и услуги\n5 - Рестораны\n6 - Топливо\n";
+        cin >> ptrid;
+        cout << "Введите дату (yyyymmdd): ";
+        cin >> ptr_date_str;
+        cout << "Введите сумму: ";
+        cin >> ptr_price;
+        ptr_year_str += ptr_date_str[0];
+        ptr_year_str += ptr_date_str[1];
+        ptr_year_str += ptr_date_str[2];
+        ptr_year_str += ptr_date_str[3];
+        ptr_mon_str += ptr_date_str[4];
+        ptr_mon_str += ptr_date_str[5];
+        ptr_day_str += ptr_date_str[6];
+        ptr_day_str += ptr_date_str[7];
+        int ptr_year = stoi(ptr_year_str);
+        int ptr_mon = stoi(ptr_mon_str);
+        int ptr_day = stoi(ptr_day_str);
+        s.setCategory(ptrid);
+        s.setDate(ptr_year, ptr_mon, ptr_day);
+        s.setPrice(ptr_price);
+    }
+
+    void outputSpendingS()
     {
         cout << setw(5) << "|"
             << setw(16) << category.name

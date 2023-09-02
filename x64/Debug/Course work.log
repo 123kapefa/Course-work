@@ -1,8 +1,8 @@
 ﻿  Main.cpp
-C:\Users\Артур\Desktop\Course Work\Course work\Spending.h(100,23): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\Артур\Desktop\Course Work\Course work\Spending.h(102,23): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\Артур\Desktop\Course Work\Course work\Spending.h(122,41): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-C:\Users\Артур\Desktop\Course Work\Course work\Card.hpp(157,38): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-C:\Users\Артур\Desktop\Course Work\Course work\User.hpp(31,42): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\Артур\Desktop\Course Work\Course work\Menu.hpp(42,46): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-  Course work.vcxproj -> C:\Users\Артур\Desktop\Course Work\Course work\x64\Debug\Course work.exe
+E:\course work\Spending.h(185,1): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+E:\course work\Spending.h(187,1): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+E:\course work\Spending.h(207,41): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+E:\course work\Card.hpp(165,38): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+E:\course work\User.hpp(31,26): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
+E:\course work\Menu.hpp(42,48): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  Course work.vcxproj -> E:\course work\x64\Debug\Course work.exe

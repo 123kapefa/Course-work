@@ -94,7 +94,7 @@ public:
 
     void outputSpenddingU()
     {
-        system("cls ");
+        system("cls");
         int ptrcard;
         cout << "Выберите карту\n";
         for (int i = 0; i < card.size(); i++)
@@ -104,6 +104,20 @@ public:
         cin >> ptrcard;
         system("cls");
         card[ptrcard - 1].outputSpenddingC();
+    }
+
+    void inputSpendingU()
+    {
+        system("cls");
+        int ptrcard;
+        cout << "Выберите карту\n";
+        for (int i = 0; i < card.size(); i++)
+        {
+            cout << "\t" << i + 1 << " карта\n";
+        }
+        cin >> ptrcard;
+        system("cls");
+        card[ptrcard - 1].inputSpendingC();
     }
 
     // Метод: вызов метода с класса "Card" для ввода данных карт пользователя
