@@ -3,3 +3,4 @@ E:\OneDrive_HNURE\OneDrive - Kharkiv National University of Radioelectronics\_SH
 C:\Users\Artur\Desktop\Course Work\Course work\x64\Debug\Course work.exe
 C:\Users\Артур\Desktop\Course Work\Course work\x64\Debug\Course work.exe
 E:\course work\x64\Debug\Course work.exe
+D:\Course Work\Course work\x64\Debug\Course work.exe

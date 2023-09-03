@@ -7,12 +7,12 @@ class Spending
 {
 private:
     Category category;
-    Date date;
+    tm date;
     double price;
     
 public:
 
-    Spending(int _category_id, int _date_year, int _date_mon, int _date_day, double _price)
+    Spending(int _category_id, int _date_year, int _date_mon, int _date_mday, double _price)
         : price(_price)
     {
         switch (_category_id)
@@ -43,19 +43,48 @@ public:
             break;
         }
 
-        date.date_year = _date_year;
-        date.date_mon = _date_mon;
-        date.date_day = _date_day;
+        date.tm_year = _date_year;
+        date.tm_mon = _date_mon;
+        date.tm_mday = _date_mday;
+    }
+
+    Spending(int _category_id, tm _date, double _price)
+        : price(_price)
+    {
+        switch (_category_id)
+        {
+        case 1:
+            category.id = _category_id;
+            category.name = "Продукты";
+            break;
+        case 2:
+            category.id = _category_id;
+            category.name = "Такси";
+            break;
+        case 3:
+            category.id = _category_id;
+            category.name = "Медицина";
+            break;
+        case 4:
+            category.id = _category_id;
+            category.name = "Товары и услуги";
+            break;
+        case 5:
+            category.id = _category_id;
+            category.name = "Рестораны";
+            break;
+        case 6:
+            category.id = _category_id;
+            category.name = "Топливо";
+            break;
+        }
+
+        date = _date;
     }
 
     Spending() : Spending(0, 1970, 1, 1, 0.0) {}
 
     // Аксессоры
-    //int getCategory() { return category; }
-    //string getName() { return name; }
-    int getDateDay() { return date.date_day; }
-    int getDateMon() { return date.date_mon; }
-    int getDateYear() { return date.date_year; }
     double getPrice() { return price; }
 
     // Мутаторы
@@ -94,68 +123,22 @@ public:
             break;
         }
     }
-    void setDate(int year, int mon, int day)
+    void setDate(int year, int mon, int mday)
     {
-        date.date_day = day;
-        date.date_mon = mon;
-        date.date_year = year;
+        date.tm_mday = mday;
+        date.tm_mon = mon;
+        date.tm_year = year;
     }
-    void setDate(Date _date)
+    void setDate(tm _date)
     {
-        date.date_day = _date.date_day;
-        date.date_mon = _date.date_mon;
-        date.date_year = _date.date_year;
+        date.tm_mday = _date.tm_mday;
+        date.tm_mon = _date.tm_mon;
+        date.tm_year = _date.tm_year;
     }
-    void setDateDay(Date _date) { date.date_day = _date.date_day; }
-    void setDateMon(Date _date) { date.date_mon = _date.date_mon; }
-    void setDateYear(Date _date) { date.date_year = _date.date_year; }
+    void setDateDay(tm _date) { date.tm_mday = _date.tm_mday; }
+    void setDateMon(tm _date) { date.tm_mon = _date.tm_mon; }
+    void setDateYear(tm _date) { date.tm_year = _date.tm_year; }
     void setPrice(double _price) { price = _price; }
-
-    void outputSpenddingS()
-    {
-        cout << setw(5) << "|"
-            << setw(16) << category.name
-            << setw(3) << " | "
-            << setw(3) << category.id
-            << setw(4) << "  |  "
-            << setw(4) << date.date_year
-            << setw(1) << "."
-            << setw(2) << date.date_mon
-            << setw(1) << "."
-            << setw(2) << date.date_day
-            << setw(4) << "  | "
-            << setw(9) << fixed << setprecision(2) << price
-            << setw(2) << " |"
-            << endl;
-    }
-
-    void inputSpendingS(Spending &s)
-    {
-        int ptrid;
-        string ptr_date_str, ptr_year_str, ptr_mon_str, ptr_day_str;
-        double ptr_price;
-        cout << "Выберите категорию затрат\n";
-        cout << "1 - Продукты\n2 - _category_id\n3 - Медицина\n4 - Товары и услуги\n5 - Рестораны\n6 - Топливо\n";
-        cin >> ptrid;
-        cout << "Введите дату (yyyymmdd): ";
-        cin >> ptr_date_str;
-        cout << "Введите сумму: ";
-        cin >> ptr_price;
-        ptr_year_str += ptr_date_str[0];
-        ptr_year_str += ptr_date_str[1];
-        ptr_year_str += ptr_date_str[2];
-        ptr_year_str += ptr_date_str[3];
-        ptr_mon_str += ptr_date_str[4];
-        ptr_mon_str += ptr_date_str[5];
-        ptr_day_str += ptr_date_str[6];
-        ptr_day_str += ptr_date_str[7];
-        int ptr_year = stoi(ptr_year_str);
-        int ptr_mon = stoi(ptr_mon_str);
-        int ptr_day = stoi(ptr_day_str);
-        s.setCategory(ptrid);
-        s.setDate(ptr_year, ptr_mon, ptr_day);
-        s.setPrice(ptr_price);
-    }
 
     void outputSpendingS()
     {
@@ -164,15 +147,30 @@ public:
             << setw(3) << " | "
             << setw(3) << category.id
             << setw(4) << "  |  "
-            << setw(4) << date.date_year
-            << setw(1) << "."
-            << setw(2) << date.date_mon
-            << setw(1) << "."
-            << setw(2) << date.date_day
-            << setw(4) << "  | "
-            << setw(9) << fixed << setprecision(2) << price
+            << put_time(&date, "%Y.%m.%d")
+            << setw(4) << "  | ";
+        cout << setw(9) << fixed << setprecision(2) << price
             << setw(2) << " |"
             << endl;
+    }
+
+    void inputSpendingS(Spending &s)
+    {
+        int ptrid;
+        tm inputdate;
+        string ptr_date_str, ptr_year_str, ptr_mon_str, ptr_day_str;
+        double ptr_price;
+        cout << "Выберите категорию затрат\n";
+        cout << "1 - Продукты\n2 - Такси\n3 - Медицина\n4 - Товары и услуги\n5 - Рестораны\n6 - Топливо\n";
+        cin >> ptrid;
+        cout << "Введите дату (ГГГГ ММ ДД): ";
+        cin >> get_time(&inputdate, "%Y %m %d");
+        cout << "Введите сумму: ";
+        cin >> ptr_price;
+        
+        s.setCategory(ptrid);
+        s.setDate(inputdate);
+        s.setPrice(ptr_price);
     }
 
     friend void inputSpendingTXT(vector <Spending> &s, int usernumber, int cardnumber, int ptrSwitch)
@@ -200,27 +198,33 @@ public:
             {
                 while (!fin.eof())
                 {
-                    string ptr_category_id_str, ptr_date_str, ptr_year_str, ptr_mon_str, ptr_day_str, ptr_price_str;
+                    string ptrdate, ptryear, ptrmon, ptrmday;
+                    int ptrid;
+                    double ptrprice;
 
-                    fin >> ptr_category_id_str >> ptr_date_str >> ptr_price_str;
+                    fin >> ptrid;
+                    //fin >> ptrdate;
+                    fin >> ptryear >> ptrmon >> ptrmday;
+                    fin >> ptrprice;
 
-                    int ptr_category_id = stod(ptr_category_id_str);
+                    ptrdate += ptryear;
+                    ptrdate += " ";
+                    ptrdate += ptrmon;
+                    ptrdate += " ";
+                    ptrdate += ptrmday;
+                    istringstream dateStream(ptrdate);
 
-                    ptr_year_str += ptr_date_str[0];
-                    ptr_year_str += ptr_date_str[1];
-                    ptr_year_str += ptr_date_str[2];
-                    ptr_year_str += ptr_date_str[3];
-                    ptr_mon_str += ptr_date_str[4];
-                    ptr_mon_str += ptr_date_str[5];
-                    ptr_day_str += ptr_date_str[6];
-                    ptr_day_str += ptr_date_str[7];
-                    int ptr_year = stoi(ptr_year_str);
-                    int ptr_mon = stoi(ptr_mon_str);
-                    int ptr_day = stoi(ptr_day_str);
+                    tm inputdate = { 0 };
 
-                    double ptr_price = stod(ptr_price_str);
+                    dateStream >> inputdate.tm_year >> inputdate.tm_mon >> inputdate.tm_mday;
+                    inputdate.tm_year -= 1900;
+                    inputdate.tm_mon--;
 
-                    Spending ptrspending(ptr_category_id, ptr_year, ptr_mon, ptr_day, ptr_price);
+                    time_t dateTime = mktime(&inputdate);
+
+                    localtime_s(&inputdate, &dateTime);
+
+                    Spending ptrspending(ptrid, inputdate, ptrprice);
                     s.push_back(ptrspending);
                 }
             }
@@ -230,5 +234,114 @@ public:
             cout << "Не удалось открыть файл!" << endl;
         }
         fin.close();
+    }
+
+    //--------------------------------------------------------------------------------------------------------------
+
+    bool outputReportCostS(tm localTime, bool& ptr)
+    {
+        if (date.tm_year == localTime.tm_year && date.tm_mon == localTime.tm_mon && date.tm_mday == localTime.tm_mday)
+            ptr = true;
+        return ptr;
+    }
+
+    bool outputReportCostS(time_t localTime, time_t rangeTime, bool& ptr)
+    {
+        time_t dateTime = mktime(&date);
+
+        if 
+        (dateTime >= rangeTime && dateTime <= localTime)
+            ptr = true;
+        return ptr;
+    }
+
+    bool outputReportCategoryS(tm localTime, bool& ptr, int spendingtype)
+    {
+        if (date.tm_year == localTime.tm_year && date.tm_mon == localTime.tm_mon && date.tm_mday == localTime.tm_mday && category.id == spendingtype)
+            ptr = true;
+        return ptr;
+    }
+
+    bool outputReportCategoryS(time_t localTime, time_t rangeTime, bool& ptr, int spendingtype)
+    {
+        time_t dateTime = mktime(&date);
+
+        if
+            (dateTime >= rangeTime && dateTime <= localTime && category.id == spendingtype)
+            ptr = true;
+        return ptr;
+    }
+
+    //--------------------------------------------------------------------------------------------------------------
+
+    void outputTopCostS(tm localTime, double &top1, double &top2, double &top3)
+    {
+        if (date.tm_year == localTime.tm_year && date.tm_mon == localTime.tm_mon && date.tm_mday == localTime.tm_mday)
+        {
+            if (top1 < price)
+            {
+                top3 = top2;
+                top2 = top1;
+                top1 = price;
+            }
+        }
+    }
+
+    void outputTopCostS(time_t localTime, time_t rangeTime, double& top1, double& top2, double& top3)
+    {
+        time_t dateTime = mktime(&date);
+
+        if (dateTime >= rangeTime && dateTime <= localTime)
+        {
+            if (top1 < price)
+            {
+                top3 = top2;
+                top2 = top1;
+                top1 = price;
+            }
+            else if (price < top1 && price > top2)
+            {
+                top3 = top2;
+                top2 = price;
+            }
+        }
+    }
+
+    void outputTopCategoryS(tm localTime, int spendingtype, double& top1, double& top2, double& top3)
+    {
+        if (date.tm_year == localTime.tm_year && date.tm_mon == localTime.tm_mon && date.tm_mday == localTime.tm_mday)
+        {
+            if (top1 < price)
+            {
+                top3 = top2;
+                top2 = top1;
+                top1 = price;
+            }
+        }
+    }
+
+    void outputTopCategoryS(time_t localTime, time_t rangeTime, int spendingtype, double& top1, double& top2, double& top3)
+    {
+        time_t dateTime = mktime(&date);
+
+        if (dateTime >= rangeTime && dateTime <= localTime && category.id == spendingtype)
+        {
+            if (top1 < price)
+            {
+                top3 = top2;
+                top2 = top1;
+                top1 = price;
+            }
+        }
+    }
+
+    void topReport(const double top1, const double top2, const double top3, bool& c1, bool& c2, bool& c3)
+    {
+        if (top1 == price)
+            c1 = true;
+        else if (top2 == price)
+            c2 = true;
+        else if (top3 == price)
+            c3 = true;
     }
 };

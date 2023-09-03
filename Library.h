@@ -8,19 +8,18 @@
 #include <ctime>
 #include <filesystem>
 #include <compare>
+#include <sstream>
 
 using namespace std;
 using namespace filesystem;
 
-struct Date
-{
-    int date_day;
-    int date_mon;
-    int date_year;
-};
+
 
 struct Category 
 {
     int id;
     string name;
 };
+
+
+

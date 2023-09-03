@@ -12,12 +12,11 @@ private:
     string name; // Имя ползователя
     string surname; // Фамилия пользователя
     vector <Card> card; // Массив карт пользователя
-    int countCard; // Количество карт пользователя
 public:
     // Конструкторы
-    User(string _name, string _surname, int _countCard) : name(_name), surname(_surname), countCard(_countCard) {} // Конструктор с 3 параметрами
-    User(string _name, string _surname, string _login, string _key, vector <Card> _card, int _countCard) : name(_name), surname(_surname), login(_login), key(_key), card(_card), countCard(_countCard) {} // Конструктор с 3 параметрами
-    User() : User("Unknown", "Unknown", 0) {} // Конструктор по умолчанию
+    User(string _name, string _surname) : name(_name), surname(_surname) {} // Конструктор с 3 параметрами
+    User(string _name, string _surname, string _login, string _key, vector <Card> _card) : name(_name), surname(_surname), login(_login), key(_key), card(_card) {} // Конструктор с 3 параметрами
+    User() : User("Unknown", "Unknown") {} // Конструктор по умолчанию
 
     // Деструктор
     /*~User() { delete[] card; }*/
@@ -27,15 +26,14 @@ public:
     string getKey() { return key; }
     string getName() { return name; }
     string getSurname() { return surname; }
-    vector <Card> getCard() { return card; }
     int getCountCard() { return card.size(); }
+    vector <Card> getCard() { return card; }
 
     // Мутаторы
     void setLogin(string _login) { login = _login; }
     void setKey(string _key) { key = _key; }
     void setName(string _name) { name = _name; }
     void setSurname(string _surname) { surname = _surname; }
-    void setCountCard(int _countCard) { countCard = _countCard; }
     void setCardAll(vector <Card> _card) { card = _card; }
     void setCardOne(Card _card) { card.push_back(_card); }
     //void setCard(Card* _card)
@@ -61,6 +59,7 @@ public:
         cout << "Введите пароль: ";
         cin >> key;
         cout << "Введите количество карт: ";
+        int countCard;
         cin >> countCard;
         vector <Card> newcard;
         string num1 = to_string(ptrfolder + 1);
@@ -88,22 +87,35 @@ public:
     // Метод: вывод данных пользователя 
     void outputUserDistlay()
     {
-        cout << "   Имя: " << name << "   Фамилия: " << surname << "   Кол-тво карт: " << countCard << endl;
+        cout << "   Имя: " << name << "   Фамилия: " << surname << "   Кол-тво карт: " << card.size() << endl;
 
     }
 
-    void outputSpenddingU()
+    void outputReportU(int i, int reporttype)
+    {
+        card[i].outputReportC(reporttype);
+    }
+
+    void outputTopU(int i, int reporttype)
+    {
+        card[i].outputTopC(reporttype);
+    }
+
+    
+
+
+    void outputSpendingU()
     {
         system("cls");
         int ptrcard;
-        cout << "Выберите карту\n";
+        cout << "Выберите карту:\n";
         for (int i = 0; i < card.size(); i++)
         {
-            cout << "\t" << i + 1 << " карта\n";
+            cout << "  " << i + 1 << " - карта\n";
         }
         cin >> ptrcard;
         system("cls");
-        card[ptrcard - 1].outputSpenddingC();
+        card[ptrcard - 1].outputSpendingC();
     }
 
     void inputSpendingU()
@@ -113,7 +125,7 @@ public:
         cout << "Выберите карту\n";
         for (int i = 0; i < card.size(); i++)
         {
-            cout << "\t" << i + 1 << " карта\n";
+            cout << "  " << i + 1 << " - карта\n";
         }
         cin >> ptrcard;
         system("cls");
@@ -123,14 +135,14 @@ public:
     // Метод: вызов метода с класса "Card" для ввода данных карт пользователя
     void showInputDataCard()
     {
-        for (int i = 0; i < countCard; i++)
+        for (int i = 0; i < card.size(); i++)
             card[i].inputDataCard(i + 1);
     }
 
     // Метод: вызов метода с класса "Card" для вывода данных карт пользователя
     void showOutputDataCard()
     {
-        for (int i = 0; i < countCard; i++)
+        for (int i = 0; i < card.size(); i++)
             card[i].outputDataCard(i + 1);
     }
 
@@ -244,7 +256,7 @@ void inputUsersTXT(vector<User> &users, int ptrSwitch)
 
                 inputCardsTXT(ptrCards, ptrCountCard, i + 1, 2);
 
-                User newUser(ptrName, ptrSurname, ptrLogin, ptrKey, ptrCards, ptrCountCard);
+                User newUser(ptrName, ptrSurname, ptrLogin, ptrKey, ptrCards);
 
                 users.push_back(newUser);
             }
