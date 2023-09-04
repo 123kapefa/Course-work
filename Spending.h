@@ -131,9 +131,7 @@ public:
     }
     void setDate(tm _date)
     {
-        date.tm_mday = _date.tm_mday;
-        date.tm_mon = _date.tm_mon;
-        date.tm_year = _date.tm_year;
+        date = _date;
     }
     void setDateDay(tm _date) { date.tm_mday = _date.tm_mday; }
     void setDateMon(tm _date) { date.tm_mon = _date.tm_mon; }
@@ -157,17 +155,29 @@ public:
     void inputSpendingS(Spending &s)
     {
         int ptrid;
-        tm inputdate;
-        string ptr_date_str, ptr_year_str, ptr_mon_str, ptr_day_str;
+        tm inputdate = { 0 };
+        string ptr_date_str;
         double ptr_price;
         cout << "Выберите категорию затрат\n";
         cout << "1 - Продукты\n2 - Такси\n3 - Медицина\n4 - Товары и услуги\n5 - Рестораны\n6 - Топливо\n";
+
         cin >> ptrid;
         cout << "Введите дату (ГГГГ ММ ДД): ";
-        cin >> get_time(&inputdate, "%Y %m %d");
+        cin.ignore();
+        getline(cin, ptr_date_str);
         cout << "Введите сумму: ";
         cin >> ptr_price;
         
+        istringstream dateStream(ptr_date_str);
+
+        dateStream >> inputdate.tm_year >> inputdate.tm_mon >> inputdate.tm_mday;
+        inputdate.tm_year -= 1900;
+        inputdate.tm_mon--;
+
+        time_t dateTime = mktime(&inputdate);
+
+        localtime_s(&inputdate, &dateTime);
+
         s.setCategory(ptrid);
         s.setDate(inputdate);
         s.setPrice(ptr_price);

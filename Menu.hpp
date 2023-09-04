@@ -55,6 +55,7 @@ void loginMenu(int& ptr)
 						{
 							userentry = i;
 							userentryb = true;
+							break;
 						}
 						else
 						{
@@ -96,7 +97,7 @@ void loginMenu(int& ptr)
 }
 
 
-void globalMenu(vector <User>& users, int i, int& ptr)
+void globalMenu(vector <User>& users, int count, int& ptr)
 {
 	while (ptr != 0)
 	{
@@ -105,7 +106,7 @@ void globalMenu(vector <User>& users, int i, int& ptr)
 		{
 			system("cls");
 			cout << "=============== Ваши данные ===============\n";
-			users[i].outputUserDistlay();
+			users[count].outputUserDistlay();
 			int menuSwitch4;
 			menu2();
 			/*cout << "===========================================\n";
@@ -125,19 +126,20 @@ void globalMenu(vector <User>& users, int i, int& ptr)
 			case 1: // 1 - Посмотреть все карты
 			{
 				system("cls");
-				users[i].showOutputDataCard();
+				users[count].showOutputDataCard();
 				system("pause");
 				break;
 			}
 			case 2: // 2 - Пополнить карту
 			{
+				system("cls");
 				int ptrCard = 0;
 				cout << "=============== Ваши карты ===============\n";
-				users[i].showOutputDataCard();
+				users[count].showOutputDataCard();
 				cout << "Выберите карту для пополнения: ";
 				cin >> ptrCard;
 				ptrCard--;
-				if (ptrCard > users[i].getCountCard())
+				if (ptrCard > users[count].getCountCard())
 				{
 					cout << "\nНеправильная карта!\n";
 					cout << "Повторите попытку!\n";
@@ -148,21 +150,21 @@ void globalMenu(vector <User>& users, int i, int& ptr)
 					double sum;
 					cout << "Введите сумму пополнения: ";
 					cin >> sum;
-					users[i].refill(ptrCard, sum);
+					users[count].refill(ptrCard, sum);
 				}
 				break;
 			}
 			case 3: // 3 - Добавить карту
 			{
-				Card card;
-				int k = users[i].getCountCard() + 1;
-				card.inputDataCard(k);
-				users[i].setCardOne(card);
+				Card new_card;
+				int k = users[count].getCountCard() + 1;
+				new_card.inputDataCard(k);
+				users[count].setCardOne(new_card);
 
 				string num1 = to_string(k);
 				string path1 = "Users/User";
 				path1 += num1;
-				int n = users[i].getCountCard();
+				int n = users[count].getCountCard();
 				string num2 = to_string(n);
 				string path2 = path1;
 				path2 += "/Card";
@@ -172,12 +174,12 @@ void globalMenu(vector <User>& users, int i, int& ptr)
 			}
 			case 4: // 4 - Посмотреть затраты
 			{
-				users[i].outputSpendingU();
+				users[count].outputSpendingU();
 				break;
 			}
 			case 5: // 5 - Внести затраты
 			{
-				users[i].inputSpendingU();
+				users[count].inputSpendingU();
 				break;
 			}
 			case 6: // 6 - Сделать отчет
@@ -190,12 +192,12 @@ void globalMenu(vector <User>& users, int i, int& ptr)
 				system("cls");
 				cout << "Выберите карту: \n";
 				int ptr;
-				for (int i = 0; i < users[i].getCountCard(); i++)
+				for (int i = 0; i < users[count].getCountCard(); i++)
 				{
 					cout << i + 1 << " - карта\n";
 				}
 				cin >> ptr;
-				users[i].outputReportU(ptr - 1, reporttype);
+				users[count].outputReportU(ptr - 1, reporttype);
 				break;
 			}
 			case 7: // 7 - Сделать рейтинг
@@ -208,12 +210,12 @@ void globalMenu(vector <User>& users, int i, int& ptr)
 				system("cls");
 				cout << "Выберите карту: \n";
 				int ptr;
-				for (int i = 0; i < users[i].getCountCard(); i++)
+				for (int i = 0; i < users[count].getCountCard(); i++)
 				{
 					cout << i + 1 << " - карта\n";
 				}
 				cin >> ptr;
-				users[i].outputTopU(ptr - 1, reporttype);
+				users[count].outputTopU(ptr - 1, reporttype);
 				break;
 			}
 			case 8: // 8 - Настройки
@@ -255,7 +257,7 @@ void menu2()
 	cout << "\t8 - Настройки\n";
 	cout << "\t0 - Выход\n";
 	cout << "===========================================\n";
-}
+} 
 
 void menu3(vector <User>& users)
 {

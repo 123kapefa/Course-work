@@ -46,6 +46,7 @@ public:
 		cardDate = other.cardDate;
 		cardSVSCode = other.cardSVSCode;
 		cardSum = other.cardSum;
+		cardSpending = other.cardSpending;
 	}
 
 	Card& operator= (const Card& other)
@@ -107,20 +108,27 @@ public:
 
 	void outputSpendingC()
 	{
-		cout << setw(5) << "|"
-			<< setw(17) << " Название услуги "
-			<< setw(1) << "|"
-			<< setw(6) << "  ID  "
-			<< setw(1) << "|"
-			<< setw(14) << " Дата покупки "
-			<< setw(1) << "|"
-			<< setw(10) << "   Цена   "
-			<< setw(1) << " |"
-			<< endl;
-		cout << setw(55) << "    +-----------------+------+--------------+-----------+" << endl;
-		for (int i = 0; i < cardSpending.size(); i++)
+		if (!cardSpending.empty())
 		{
-			cardSpending[i].outputSpendingS();
+			cout << setw(5) << "|"
+				<< setw(17) << " Название услуги "
+				<< setw(1) << "|"
+				<< setw(6) << "  ID  "
+				<< setw(1) << "|"
+				<< setw(14) << " Дата покупки "
+				<< setw(1) << "|"
+				<< setw(10) << "   Цена   "
+				<< setw(1) << " |"
+				<< endl;
+			cout << setw(55) << "    +-----------------+------+--------------+-----------+" << endl;
+			for (int i = 0; i < cardSpending.size(); i++)
+			{
+				cardSpending[i].outputSpendingS();
+			}
+		}
+		else
+		{
+			cout << "Нет расходов!" << endl;
 		}
 		system("pause");
 	}
@@ -231,6 +239,9 @@ public:
 					case 2:
 					{
 						tm weekDate = localDate;
+						weekDate.tm_hour = 0;
+						weekDate.tm_min = 0;
+						weekDate.tm_sec = 0;
 						time_t weekTime = mktime(&weekDate);
 						weekTime -= 7 * 24 * 3600;
 						time_t localTime = mktime(&localDate);
@@ -248,15 +259,18 @@ public:
 					}
 					case 3:
 					{
-						tm weekDate = localDate;
-						time_t weekTime = mktime(&weekDate);
-						weekTime -= 30 * 24 * 3600;
+						tm monDate = localDate;
+						monDate.tm_hour = 0;
+						monDate.tm_min = 0;
+						monDate.tm_sec = 0;
+						time_t monTime = mktime(&monDate);
+						monTime -= 30 * 24 * 3600;
 						time_t localTime = mktime(&localDate);
 
 						for (int i = 0; i < cardSpending.size(); i++)
 						{
 							bool ptr = false;
-							cardSpending[i].outputReportCostS(localTime, weekTime, ptr);
+							cardSpending[i].outputReportCostS(localTime, monTime, ptr);
 							if (ptr)
 								s.push_back(cardSpending[i]);
 						}
@@ -283,8 +297,12 @@ public:
 						{
 							s[i].outputSpendingS();
 						}
-						system("pause");
 					}
+					else
+					{
+						cout << "Нет расходов!" << endl;
+					}
+					system("pause");
 				}
 				break;
 			}
@@ -382,8 +400,12 @@ public:
 						{
 							s[i].outputSpendingS();
 						}
-						system("pause");
 					}
+					else
+					{
+						cout << "Нет расходов!" << endl;
+					}
+					system("pause");
 				}
 				break;
 			}
@@ -584,8 +606,12 @@ public:
 						{
 							s[i].outputSpendingS();
 						}
-						system("pause");
 					}
+					else
+					{
+						cout << "Нет расходов!" << endl;
+					}
+					system("pause");
 				}
 				break;
 			}
@@ -773,8 +799,12 @@ public:
 						{
 							s[i].outputSpendingS();
 						}
-						system("pause");
 					}
+					else
+					{
+						cout << "Нет расходов!" << endl;
+					}
+					system("pause");
 				}
 				break;
 			}
