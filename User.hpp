@@ -108,28 +108,43 @@ public:
     {
         system("cls");
         int ptrcard;
-        cout << "Выберите карту:\n";
-        for (int i = 0; i < card.size(); i++)
+        bool ptrsw = true;
+        while (ptrsw)
         {
-            cout << "  " << i + 1 << " - карта\n";
-        }
-        cin >> ptrcard;
         system("cls");
-        card[ptrcard - 1].outputSpendingC();
+            cout << "Выберите карту:\n";
+            for (int i = 0; i < card.size(); i++)
+            {
+                cout << "  " << i + 1 << " - карта\n";
+            }
+            cin >> ptrcard;
+            ptrcard -= 1;
+            if (ptrcard >= 0 && ptrcard < card.size())
+                ptrsw = false;
+        }
+        system("cls");
+        card[ptrcard].outputSpendingC();
     }
 
     void inputSpendingU()
     {
         system("cls");
+        bool ptrsw1 = true;
         int ptrcard;
-        cout << "Выберите карту\n";
-        for (int i = 0; i < card.size(); i++)
+        while (ptrsw1)
         {
-            cout << "  " << i + 1 << " - карта\n";
+            cout << "Выберите карту\n";
+            for (int i = 0; i < card.size(); i++)
+            {
+                cout << "  " << i + 1 << " - карта\n";
+            }
+            cin >> ptrcard;
+            ptrcard -= 1;
+            if (ptrcard >= 0 && ptrcard < card.size())
+                ptrsw1 = false;
         }
-        cin >> ptrcard;
-        system("cls");
-        card[ptrcard - 1].inputSpendingC();
+            system("cls");
+            card[ptrcard].inputSpendingC();
     }
 
     // Метод: вызов метода с класса "Card" для ввода данных карт пользователя

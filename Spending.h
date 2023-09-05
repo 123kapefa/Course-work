@@ -158,10 +158,16 @@ public:
         tm inputdate = { 0 };
         string ptr_date_str;
         double ptr_price;
-        cout << "Выберите категорию затрат\n";
-        cout << "1 - Продукты\n2 - Такси\n3 - Медицина\n4 - Товары и услуги\n5 - Рестораны\n6 - Топливо\n";
-
-        cin >> ptrid;
+        bool ptrsw = true;
+        while (ptrsw)
+        {
+            system("cls");
+            cout << "Выберите категорию затрат\n";
+            cout << "1 - Продукты\n2 - Такси\n3 - Медицина\n4 - Товары и услуги\n5 - Рестораны\n6 - Топливо\n";
+            cin >> ptrid;
+            if (ptrid > 0 && ptrid < 7)
+                ptrsw = false;
+        }
         cout << "Введите дату (ГГГГ ММ ДД): ";
         cin.ignore();
         getline(cin, ptr_date_str);

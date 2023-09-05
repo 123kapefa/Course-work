@@ -134,11 +134,20 @@ void globalMenu(vector <User>& users, int count, int& ptr)
 			{
 				system("cls");
 				int ptrCard = 0;
-				cout << "=============== Ваши карты ===============\n";
-				users[count].showOutputDataCard();
-				cout << "Выберите карту для пополнения: ";
-				cin >> ptrCard;
-				ptrCard--;
+				
+				bool ptrsw = true;
+				while (ptrsw)
+				{
+					system("cls");
+					cout << "=============== Ваши карты ===============\n";
+					users[count].showOutputDataCard();
+					cout << "Выберите карту для пополнения: ";
+					cin >> ptrCard;
+					ptrCard--;
+					if (ptrCard >= 0 && ptrCard < users[count].getCountCard())
+						ptrsw = false;
+				}
+				
 				if (ptrCard > users[count].getCountCard())
 				{
 					cout << "\nНеправильная карта!\n";

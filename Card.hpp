@@ -69,11 +69,21 @@ public:
 	{
 		system("cls");
 		int typeCard;
-		cout << "Ввод данных для №" << ptr << " карты:" << endl;
-		cout << "Выберите тип карты:" << endl;
-		cout << "   1 - Дебетовая" << endl;
-		cout << "   2 - Кредитная" << endl;
-		cin >> typeCard;
+		bool ptrsw = true;
+		while(ptrsw)
+		{
+			system("cls");
+			cout << "Ввод данных для №" << ptr << " карты:" << endl;
+			cout << "Выберите тип карты:" << endl;
+			cout << "   1 - Дебетовая" << endl;
+			cout << "   2 - Кредитная" << endl;
+			cin >> typeCard;
+			if (typeCard == 1 || typeCard == 2)
+			{
+				ptrsw = false;
+			}
+		}
+		
 		switch (typeCard)
 		{
 		case 1:
