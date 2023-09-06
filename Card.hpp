@@ -153,51 +153,75 @@ public:
 
 	friend void inputCardsTXT(vector<Card>& cards, int ptrCountCards, int usersnumber, int ptrSwitch)
 	{
-		string ptrusernumber = to_string(usersnumber);
-		ptrusernumber += "/input_cards";
-		string path = "Users/User.txt";
-		path.insert(10, ptrusernumber);
-
-		fstream fin;
-		fin.open(path, fstream::in | fstream::out | fstream::app);
-		if (fin.is_open())
-		{
+		
 			if (ptrSwitch == 1)
 			{
+				string ptrusernumber = to_string(usersnumber);
+				ptrusernumber += "/input_cards";
+				string path = "Users/User.txt";
+				path.insert(10, ptrusernumber);
 
+				fstream fin;
+				fin.open(path, fstream::out);
+				if (fin.is_open())
+				{
+					for (int i = 0; i < ptrCountCards; i++)
+					{
+						fin << cards[i].getCardNumber() << endl << cards[i].getCardType() << endl << cards[i].getCardDate() << endl << cards[i].getCardSVSCode() << endl << cards[i].getCardSum();
+						if (i != cards.size() - 1)
+						{
+							fin << endl;
+						}
+					}
+				}
+				else
+				{
+					cout << "Не удалось открыть файл!" << endl;
+				}
+				fin.close();
 			}
 			if (ptrSwitch == 2)
 			{
-				for (int i = 0; i < ptrCountCards; i++)
+				string ptrusernumber = to_string(usersnumber);
+				ptrusernumber += "/input_cards";
+				string path = "Users/User.txt";
+				path.insert(10, ptrusernumber);
+
+				fstream fin;
+				fin.open(path, fstream::in);
+				if (fin.is_open())
 				{
-					string ptrCardType, ptrCardNumber, ptrCardDate, ptrCardSVSCode, ptrCardSumStr;
-					int ptrCardSum;
-					// Считывание данных карт и создание объектов Card
-					getline(fin, ptrCardNumber);
-					getline(fin, ptrCardType);
-					getline(fin, ptrCardDate);
-					getline(fin, ptrCardSVSCode);
-					getline(fin, ptrCardSumStr);
-					fin.ignore();
+					for (int i = 0; i < ptrCountCards; i++)
+					{
+						string ptrCardType, ptrCardNumber, ptrCardDate, ptrCardSVSCode, ptrCardSumStr;
+						int ptrCardSum;
+						// Считывание данных карт и создание объектов Card
+						getline(fin, ptrCardNumber);
+						getline(fin, ptrCardType);
+						getline(fin, ptrCardDate);
+						getline(fin, ptrCardSVSCode);
+						getline(fin, ptrCardSumStr);
+						fin.ignore();
 
-					ptrCardSum = stod(ptrCardSumStr);
+						ptrCardSum = stod(ptrCardSumStr);
 
-					Card new_card(ptrCardNumber, ptrCardType, ptrCardDate, ptrCardSVSCode, ptrCardSum);
+						Card new_card(ptrCardNumber, ptrCardType, ptrCardDate, ptrCardSVSCode, ptrCardSum);
 
-					cards.push_back(new_card);
+						cards.push_back(new_card);
+					}
 				}
+				else
+				{
+					cout << "Не удалось открыть файл!" << endl;
+				}
+				fin.close();
 			}
-		}
-		else
-		{
-			cout << "Не удалось открыть файл!" << endl;
-		}
-		fin.close();
+		
 	}
 
-	void inputSpendingTXTC(int usernumber, int cardnumber)
+	void inputSpendingTXTC(int usernumber, int cardnumber, int ptrsw)
 	{
-		inputSpendingTXT(cardSpending, usernumber, cardnumber, 2);
+		inputSpendingTXT(cardSpending, usernumber, cardnumber, ptrsw);
 	}
 
 	void outputReportC(int reporttype)

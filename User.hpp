@@ -223,11 +223,11 @@ public:
         }
     }
 
-    void inputSpendingTXTU(int usernumber)
+    void inputSpendingTXTU(int usernumber, int ptrsw)
     {
         for (int i = 0; i < card.size(); i++)
         {
-            card[i].inputSpendingTXTC(usernumber, i + 1);
+            card[i].inputSpendingTXTC(usernumber, i + 1, ptrsw);
         }
     }
 };
@@ -241,46 +241,70 @@ ostream& operator<<(ostream& os, User& user)
 void inputUsersTXT(vector<User> &users, int ptrSwitch)
 {
 
-    string path = "Users/Users.txt";
-    fstream fin;
-    fin.open(path, fstream::in | fstream::out | fstream::app);
-    if (fin.is_open())
-    {
         if (ptrSwitch == 1)
         {
+            string path = "Users/Users.txt";
+            fstream fin;
+            fin.open(path, fstream::out);
+            if (fin.is_open())
+            {
+                for (int i = 0; i < users.size(); i++)
+                {
+                    fin << users[i].getName() << endl << users[i].getSurname() << endl << users[i].getLogin() << endl << users[i].getKey() << endl << users[i].getCountCard();
+                    if (i != users.size() - 1)
+                    {
+                        fin << endl;
+                    }
 
+                    vector <Card> cards = users[i].getCard();
+
+                    inputCardsTXT(cards, users[i].getCountCard(), i + 1, 1);
+                }
+            }
+            else
+            {
+                cout << "Не удалось открыть файл!" << endl;
+            }
+            fin.close();
         }
         if (ptrSwitch == 2)
         {
-            for (int i = 0; !fin.eof(); i++)
+            string path = "Users/Users.txt";
+            fstream fin;
+            fin.open(path, fstream::in);
+            if (fin.is_open())
             {
-                string ptrName, ptrSurname, ptrLogin, ptrKey, ptrCountCardStr;
+                for (int i = 0; !fin.eof(); i++)
+                {
+                    string ptrName, ptrSurname, ptrLogin, ptrKey, ptrCountCardStr;
 
-                getline(fin, ptrName);
-                getline(fin, ptrSurname);
-                getline(fin, ptrLogin);
-                getline(fin, ptrKey);
-                getline(fin, ptrCountCardStr);
-                fin.ignore();
+                    getline(fin, ptrName);
+                    getline(fin, ptrSurname);
+                    getline(fin, ptrLogin);
+                    getline(fin, ptrKey);
+                    getline(fin, ptrCountCardStr);
+                    fin.ignore();
 
-                 
 
-                int ptrCountCard = stoi(ptrCountCardStr);
 
-                vector<Card> ptrCards;
+                    int ptrCountCard = stoi(ptrCountCardStr);
 
-                inputCardsTXT(ptrCards, ptrCountCard, i + 1, 2);
+                    vector<Card> ptrCards;
 
-                User newUser(ptrName, ptrSurname, ptrLogin, ptrKey, ptrCards);
+                    inputCardsTXT(ptrCards, ptrCountCard, i + 1, 2);
 
-                users.push_back(newUser);
+                    User newUser(ptrName, ptrSurname, ptrLogin, ptrKey, ptrCards);
+
+                    users.push_back(newUser);
+                }
             }
+            else
+            {
+                cout << "Не удалось открыть файл!" << endl;
+            }
+            fin.close();
         }
-    }
-    else
-    {
-        cout << "Не удалось открыть файл!" << endl;
-    }
-    fin.close();
 }
+    
+
 

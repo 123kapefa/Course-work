@@ -85,8 +85,11 @@ public:
     Spending() : Spending(0, 1970, 1, 1, 0.0) {}
 
     // Аксессоры
+    int getId() { return category.id; }
+    int getYear() { return date.tm_year; }
+    int getMon() { return date.tm_mon; }
+    int getMday() { return date.tm_mday; }
     double getPrice() { return price; }
-
     // Мутаторы
     void setCategory(Category c)
     {
@@ -133,6 +136,9 @@ public:
     {
         date = _date;
     }
+
+
+
     void setDateDay(tm _date) { date.tm_mday = _date.tm_mday; }
     void setDateMon(tm _date) { date.tm_mon = _date.tm_mon; }
     void setDateYear(tm _date) { date.tm_year = _date.tm_year; }
@@ -191,65 +197,89 @@ public:
 
     friend void inputSpendingTXT(vector <Spending> &s, int usernumber, int cardnumber, int ptrSwitch)
     {
-        string ptrusernumber = to_string(usernumber);
-        string ptrcardnumber = to_string(cardnumber);
-        string ptr = "/input_spending.txt";
-        string path = "Users/User#1/Card#2";
-        int p1, p2;
-        p1 = path.find("#1");
-        path.replace(p1, 2, ptrusernumber);
-        p2 = path.find("#2");
-        path.replace(p2, 2, ptrcardnumber);
 
-        path += ptr;
-        fstream fin;
-        fin.open(path, fstream::in | fstream::app);
-        if (fin.is_open())
-        {
             if (ptrSwitch == 1)
             {
-    
+                string ptrusernumber = to_string(usernumber);
+                string ptrcardnumber = to_string(cardnumber);
+                string ptr = "/input_spending.txt";
+                string path = "Users/User#1/Card#2";
+                int p1, p2;
+                p1 = path.find("#1");
+                path.replace(p1, 2, ptrusernumber);
+                p2 = path.find("#2");
+                path.replace(p2, 2, ptrcardnumber);
+
+                path += ptr;
+                fstream fin;
+
+                fin.open(path, fstream::out);
+                for(int i = 0; i < s.size(); i++)
+                {
+                    fin << s[i].getId() << " " << s[i].getYear() + 1900 << " " << s[i].getMon() + 1 << " " << s[i].getMday() << " " << s[i].getPrice();
+                    if (i != s.size() - 1)
+                    {
+                        fin << endl;
+                    }
+                }
             }
             if (ptrSwitch == 2)
             {
-                while (!fin.eof())
+                string ptrusernumber = to_string(usernumber);
+                string ptrcardnumber = to_string(cardnumber);
+                string ptr = "/input_spending.txt";
+                string path = "Users/User#1/Card#2";
+                int p1, p2;
+                p1 = path.find("#1");
+                path.replace(p1, 2, ptrusernumber);
+                p2 = path.find("#2");
+                path.replace(p2, 2, ptrcardnumber);
+
+                path += ptr;
+                fstream fin;
+                fin.open(path, fstream::in);
+
+                if (fin.is_open())
                 {
-                    string ptrdate, ptryear, ptrmon, ptrmday;
-                    int ptrid;
-                    double ptrprice;
+                    
+                    while (!fin.eof())
+                    {
+                        string ptrdate, ptryear, ptrmon, ptrmday;
+                        int ptrid;
+                        double ptrprice;
 
-                    fin >> ptrid;
-                    //fin >> ptrdate;
-                    fin >> ptryear >> ptrmon >> ptrmday;
-                    fin >> ptrprice;
+                        fin >> ptrid;
+                        //fin >> ptrdate;
+                        fin >> ptryear >> ptrmon >> ptrmday;
+                        fin >> ptrprice;
 
-                    ptrdate += ptryear;
-                    ptrdate += " ";
-                    ptrdate += ptrmon;
-                    ptrdate += " ";
-                    ptrdate += ptrmday;
-                    istringstream dateStream(ptrdate);
+                        ptrdate += ptryear;
+                        ptrdate += " ";
+                        ptrdate += ptrmon;
+                        ptrdate += " ";
+                        ptrdate += ptrmday;
+                        istringstream dateStream(ptrdate);
 
-                    tm inputdate = { 0 };
+                        tm inputdate = { 0 };
 
-                    dateStream >> inputdate.tm_year >> inputdate.tm_mon >> inputdate.tm_mday;
-                    inputdate.tm_year -= 1900;
-                    inputdate.tm_mon--;
+                        dateStream >> inputdate.tm_year >> inputdate.tm_mon >> inputdate.tm_mday;
+                        inputdate.tm_year -= 1900;
+                        inputdate.tm_mon--;
 
-                    time_t dateTime = mktime(&inputdate);
+                        time_t dateTime = mktime(&inputdate);
 
-                    localtime_s(&inputdate, &dateTime);
+                        localtime_s(&inputdate, &dateTime);
 
-                    Spending ptrspending(ptrid, inputdate, ptrprice);
-                    s.push_back(ptrspending);
+                        Spending ptrspending(ptrid, inputdate, ptrprice);
+                        s.push_back(ptrspending);
+                    }
                 }
+                else
+                {
+                    cout << "Не удалось открыть файл!" << endl;
+                }
+                fin.close();
             }
-        }
-        else
-        {
-            cout << "Не удалось открыть файл!" << endl;
-        }
-        fin.close();
     }
 
     //--------------------------------------------------------------------------------------------------------------

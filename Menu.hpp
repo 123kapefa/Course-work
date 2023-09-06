@@ -14,7 +14,7 @@ void loginMenu(int& ptr)
 	inputUsersTXT(users, 2);
 	for (int i = 0; i < users.size(); i++)
 	{
-		users[i].inputSpendingTXTU(i + 1);
+		users[i].inputSpendingTXTU(i + 1, 2);
 	}
 
 	while (ptr != 0)
@@ -91,7 +91,13 @@ void loginMenu(int& ptr)
 			break;
 		case 0:
 			ptr = 0;
+			inputUsersTXT(users, 1);
+			for (int i = 0; i < users.size(); i++)
+			{
+				users[i].inputSpendingTXTU(i + 1, 1);
+			}
 			break;
+
 		}
 	}
 }
