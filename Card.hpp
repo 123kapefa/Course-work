@@ -1,6 +1,6 @@
 #pragma once
-#include "Spending.h"
-#include "Library.h"
+#include "Spending.hpp"
+#include "Library.hpp"
 
 using namespace std;
 

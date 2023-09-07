@@ -32,10 +32,10 @@
     <ClInclude Include="Header1.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Spending.h">
+    <ClInclude Include="Spending.hpp">
       <Filter>Файлы заголовков\Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="Library.h">
+    <ClInclude Include="Library.hpp">
       <Filter>Файлы заголовков\Файлы ресурсов</Filter>
     </ClInclude>
   </ItemGroup>
